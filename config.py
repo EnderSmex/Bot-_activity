@@ -8,3 +8,6 @@ class BaseConfig():
     SQLALCHEMY_DATABASE_URI = os.path.join(app_dir, 'bot.db')
     SQLALCHEMY_MIGRATE_REPO = os.path.join(app_dir, 'bot_db')
     SQLALCHEMY_TRACK_MODIFICATIONS = False
+
+class TelegramConfig():
+    TOKEN = "5503995598:AAHz8FeH-5X0kOymt9bGksPhEFTKLjw4C6M"
