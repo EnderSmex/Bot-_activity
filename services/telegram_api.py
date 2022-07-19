@@ -1,4 +1,5 @@
 import requests
+import json
 
 class TelegramApi():
 
@@ -13,14 +14,17 @@ class TelegramApi():
         self.BASEURL = self.BASEURL.format(TOKEN=self.TOKEN)
 
     def method(self,method,data):
+        
         url= self.BASEURL + method + '?'
         query_string= ''
+
         for key,value in data.items():
-            if isinstance(value,list):
-                valuest= ','.join(value)
+            if isinstance(value, dict) or isinstance(value, list) :
+                valuest = json.dumps(value, ensure_ascii = False)
             else:
                 valuest= value
             query_string+= key + '=' + str(valuest) + '&'
+
         url+=query_string
         response=self.http.get(url).json()
         return response
