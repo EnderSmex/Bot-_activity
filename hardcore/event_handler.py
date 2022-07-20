@@ -7,11 +7,11 @@ class EventHandler():
         self.api_bot= api_bot
         self.event_types=[]
 
-    def check_event(self,event):
+    async def check_event(self,event):
         '''This method chek event?'''
         pass
 
-    def handle_event(self,event):
+    async def handle_event(self,event):
         pass
 
     def get_event_types(self):

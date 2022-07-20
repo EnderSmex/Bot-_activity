@@ -5,11 +5,11 @@ class EventControler():
         self.handlers = handlers
         self.api_bot = api_bot
 
-    def processing(self,event):
+    async def processing(self,event):
         for handler in self.handlers:
             handler = handler(self.api_bot)
-            if self.__check_event_type(handler,event) and handler.check_event(event) :
-                handler.handle_event(event)
+            if self.__check_event_type(handler,event) and await handler.check_event(event) : 
+                await handler.handle_event(event)
                 return
         
     def __check_event_type(self, handler, event):

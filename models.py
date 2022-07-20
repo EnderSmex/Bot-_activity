@@ -1,25 +1,26 @@
-from app import db
-from sqlalchemy.orm import backref
+from app import Base
+from sqlalchemy.orm import backref, relationship
+from sqlalchemy import Column, Integer, String, ForeignKey, Boolean
 
-class Users(db.Model):
-
-    id = db.Column(db.Integer, primary_key = True, autoincrement = True)
-    user_id = db.Column(db.Integer)
-    role = db.Column(db.String(50))
-    is_admin = db.Column(db.Boolean)
-    game = db.Column(db.Integer, db.ForeignKey('games.id'), nullable= True)
+class Users(Base):
+    __tablename__ = 'users'
+    id = Column(Integer, primary_key = True, autoincrement = True)
+    user_id = Column(Integer)
+    role = Column(String(50))
+    is_admin = Column(Boolean)
+    game = Column(Integer, ForeignKey('games.id'), nullable= True)
 
     def __repr__(self):
         return f'<User {self.user_id}>'
 
-class Games(db.Model):
-    
-    id = db.Column(db.Integer, primary_key = True, autoincrement = True)
-    creator_id = db.Column(db.Integer, db.ForeignKey('users.id'), nullable= False)
-    created_at = db.Column(db.Integer)
-    is_online = db.Column(db.Boolean)
-    chat_id = db.Column(db.Integer)
-    players = db.relationship(Users, foreign_keys = 'Users.game')
+class Games(Base):
+    __tablename__ = 'games'
+    id = Column(Integer, primary_key = True, autoincrement = True)
+    creator_id = Column(Integer, ForeignKey('users.id'), nullable= False)
+    created_at = Column(Integer)
+    is_online = Column(Boolean)
+    chat_id = Column(Integer)
+    players = relationship(Users, foreign_keys = 'Users.game')
 
     def __repr__(self):
         return f'<Game {self.id}>'
