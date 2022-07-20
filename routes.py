@@ -21,7 +21,7 @@ def huy():
         print(data['message']['text'])
     except:
         pass
-    asyncio.ensure_future(controler.processing(data), loop=loop)
+    loop.call_soon_threadsafe(lambda:asyncio.ensure_future(controler.processing(data), loop=loop))
     return "ok"
 
 @app.route('/secret',methods=['GET','POST'])
